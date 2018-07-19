@@ -61,10 +61,18 @@ tab <- h %>% html_nodes("table")
 tab <- tab[[2]]
 tab <- tab %>% html_table()
 tab <- tab %>% setNames(c("state", "population", "total", "murders", "gun_murders", "gun_ownership", "total_rate", "murder_rate", "gun_murder_rate"))
+murders_raw <- tab
 
 # Fix Commas, data
+library(stringr)
+commas <- function(x) any (str_detect(x,"'"))
+murders_raw %>% summarize_all(funs(commas))
+test_1 <- str_replace_all(murders_raw$population, ",","")
+test_1 <- as.numeric(test_1)
 
+test_2 <- parse_number(murders_raw$population)
 
+murders_new <- murders_raw %>% mutate_at(2:3, parse_number)
 
 
 
