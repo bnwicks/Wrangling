@@ -3,6 +3,7 @@
 library(dslabs)
 data("research_funding_rates")
 research_funding_rates 
+data("gapminder")
 
 ## Download data
 library("pdftools")
